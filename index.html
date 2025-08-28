@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hamid - Personal Portfolio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Space Mono', monospace;
+            background: linear-gradient(135deg, #0c0c1e 0%, #1a1a2e 50%, #16213e 100%);
+            color: #e0e6ed;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        /* Animated stars background */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 50px;
+            background: rgba(12, 12, 30, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(64, 224, 208, 0.3);
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+        
+        nav a {
+            color: #40e0d0;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        nav a:hover {
+            color: #64ffda;
+            text-shadow: 0 0 10px #40e0d0;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #40e0d0, #64ffda);
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        /* Main content */
+        main {
+            position: relative;
+            z-index: 10;
+            padding-top: 100px;
+        }
+        
+        /* Hero section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #40e0d0, #64ffda, #00bcd4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px #40e0d0); }
+            to { filter: drop-shadow(0 0 30px #64ffda); }
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #40e0d0, #00bcd4);
+            color: #0c0c1e;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(64, 224, 208, 0.3);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(64, 224, 208, 0.5);
+        }
+        
+        /* Floating astronomical shapes */
+        .floating-shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        .planet {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #40e0d0, #64ffda);
+            top: 20%;
+            right: 10%;
+            animation-delay: -2s;
+        }
+        
+        .saturn {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            top: 60%;
+            left: 5%;
+            position: relative;
+            animation-delay: -4s;
+        }
+        
+        .saturn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ffd700, transparent);
+            border-radius: 50%;
+        }
+        
+        /* Sections */
+        section {
+            padding: 100px 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #40e0d0;
+        }
+        
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            margin-top: 50px;
+        }
+        
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .skill-card {
+            background: rgba(64, 224, 208, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(64, 224, 208, 0.3);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(64, 224, 208, 0.2);
+            border-color: #40e0d0;
+        }
+        
+        .skill-card h3 {
+            color: #64ffda;
+            margin-bottom: 15px;
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .project-card {
+            background: linear-gradient(135deg, rgba(64, 224, 208, 0.1), rgba(0, 188, 212, 0.1));
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(64, 224, 208, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(64, 224, 208, 0.3);
+        }
+        
+        .project-card h3 {
+            color: #64ffda;
+            margin-bottom: 15px;
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        /* Contact section */
+        .contact-form {
+            max-width: 600px;
+            margin: 50px auto 0;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #40e0d0;
+            font-weight: 700;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            background: rgba(64, 224, 208, 0.1);
+            border: 1px solid rgba(64, 224, 208, 0.3);
+            border-radius: 10px;
+            color: #e0e6ed;
+            font-family: 'Space Mono', monospace;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #40e0d0;
+            box-shadow: 0 0 20px rgba(64, 224, 208, 0.3);
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #40e0d0, #00bcd4);
+            color: #0c0c1e;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(64, 224, 208, 0.4);
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 20px;
+            }
+            
+            nav ul {
+                gap: 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            section {
+                padding: 50px 20px;
+            }
+            
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .floating-shape {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated stars background -->
+    <div class="stars" id="stars"></div>
+    
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>HAMID</h1>
+                <p>Python Developer & Space Enthusiast</p>
+                <p>Crafting elegant solutions with the power of Python, inspired by the infinite cosmos</p>
+                <a href="#about" class="cta-button">Explore My Universe</a>
+            </div>
+            
+            <!-- Floating astronomical shapes -->
+            <div class="floating-shape planet"></div>
+            <div class="floating-shape saturn"></div>
+        </section>
+        
+        <!-- About Section -->
+        <section id="about">
+            <h2>About Me</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>Welcome to my digital cosmos! I'm Hamid, a passionate Python developer who finds inspiration in the vastness of space and the elegance of code.</p>
+                    <p>Just as astronomers explore the universe to understand its mysteries, I explore the world of programming to create solutions that make a difference. My journey with Python has been like navigating through constellations - each project a new star in my growing galaxy of experience.</p>
+                </div>
+                <div>
+                    <svg width="300" height="300" viewBox="0 0 300 300" style="opacity: 0.7;">
+                        <defs>
+                            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#40e0d0;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#00bcd4;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <circle cx="150" cy="150" r="100" fill="none" stroke="url(#grad1)" stroke-width="2" opacity="0.5">
+                            <animate attributeName="r" values="80;120;80" dur="4s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="150" cy="150" r="60" fill="none" stroke="url(#grad1)" stroke-width="1" opacity="0.7">
+                            <animate attributeName="r" values="40;80;40" dur="3s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="150" cy="150" r="5" fill="url(#grad1)">
+                            <animate attributeName="r" values="3;8;3" dur="2s" repeatCount="indefinite"/>
+                        </circle>
+                    </svg>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Skills Section -->
+        <section id="skills">
+            <h2>Technical Constellation</h2>
+            <div class="skills-container">
+                <div class="skill-card">
+                    <h3>🐍 Python Development</h3>
+                    <p>Core Python, Django, Flask, FastAPI, and data analysis libraries like Pandas and NumPy</p>
+                </div>
+                <div class="skill-card">
+                    <h3>🌐 Web Development</h3>
+                    <p>Full-stack development with modern frameworks and responsive design principles</p>
+                </div>
+                <div class="skill-card">
+                    <h3>📊 Data Science</h3>
+                    <p>Machine learning, data visualization, and statistical analysis using Python ecosystem</p>
+                </div>
+                <div class="skill-card">
+                    <h3>🗄️ Database Management</h3>
+                    <p>SQL, PostgreSQL, MongoDB, and database optimization techniques</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Projects Section -->
+        <section id="projects">
+            <h2>Project Galaxy</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3>🚀 Space Data Analyzer</h3>
+                    <p>A Python application that processes and visualizes astronomical data from various space missions, helping researchers identify patterns in cosmic phenomena.</p>
+                </div>
+                <div class="project-card">
+                    <h3>🌟 Stellar Classification System</h3>
+                    <p>Machine learning model built with Python to classify stars based on their spectral characteristics, achieving 95% accuracy in stellar type prediction.</p>
+                </div>
+                <div class="project-card">
+                    <h3>🛰️ Orbit Prediction Tool</h3>
+                    <p>Web application using Django that calculates and predicts satellite orbits, providing real-time tracking capabilities for space enthusiasts.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2>Contact Mission Control</h2>
+            <form class="contact-form" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Launch Message 🚀</button>
+            </form>
+        </section>
+    </main>
+    
+    <script>
+        // Create animated stars
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const numberOfStars = 100;
+            
+            for (let i = 0; i < numberOfStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+        
+        // Form submission handler
+        function handleSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            
+            // Simulate form submission
+            const submitBtn = form.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            
+            submitBtn.textContent = 'Launching... 🚀';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                submitBtn.textContent = 'Message Sent! ✨';
+                setTimeout(() => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                    form.reset();
+                }, 2000);
+            }, 1500);
+        }
+        
+        // Initialize stars when page loads
+        window.addEventListener('load', createStars);
+        
+        // Add parallax effect to floating shapes
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const shapes = document.querySelectorAll('.floating-shape');
+            
+            shapes.forEach((shape, index) => {
+                const speed = 0.5 + (index * 0.1);
+                shape.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9703337ad05bf9da',t:'MTc1NTM3MTEwNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
