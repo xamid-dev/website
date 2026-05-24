@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hey Beautiful Lady Boss</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,900;1,900&family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --gold: #c9a84c;
+      --gold-light: #f0d080;
+      --blush: #f7d6d0;
+      --deep: #1a0a10;
+      --rose: #8b2a42;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--deep);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      font-family: 'Cormorant Garamond', serif;
+      position: relative;
+    }
+
+    /* Grain texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      background-size: 200px;
+      pointer-events: none;
+      z-index: 10;
+      opacity: 0.4;
+    }
+
+    /* Glowing radial background */
+    .bg-glow {
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 50%, #3d0a1a 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 30% 70%, #2a0515 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 70% 30%, #1f0510 0%, transparent 60%),
+        var(--deep);
+      z-index: 0;
+    }
+
+    /* Floating sparkles */
+    .sparkle {
+      position: fixed;
+      border-radius: 50%;
+      background: var(--gold-light);
+      opacity: 0;
+      animation: floatUp linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes floatUp {
+      0%   { transform: translateY(110vh) scale(0); opacity: 0; }
+      10%  { opacity: 0.8; }
+      90%  { opacity: 0.5; }
+      100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+    }
+
+    /* Decorative horizontal lines */
+    .deco-line {
+      width: 120px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      margin: 0 auto;
+      animation: fadeIn 1.5s ease forwards;
+      opacity: 0;
+      animation-delay: 0.5s;
+    }
+
+    .card {
+      position: relative;
+      z-index: 5;
+      text-align: center;
+      padding: 60px 80px;
+      border: 1px solid rgba(201,168,76,0.2);
+      background: rgba(255,255,255,0.02);
+      backdrop-filter: blur(6px);
+      max-width: 900px;
+      width: 90%;
+      box-shadow:
+        0 0 60px rgba(139,42,66,0.3),
+        inset 0 0 40px rgba(201,168,76,0.03);
+      animation: cardReveal 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      opacity: 0;
+    }
+
+    @keyframes cardReveal {
+      from { opacity: 0; transform: translateY(30px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Corner ornaments */
+    .card::before, .card::after {
+      content: '◆';
+      position: absolute;
+      color: var(--gold);
+      font-size: 10px;
+      opacity: 0.6;
+    }
+    .card::before { top: 12px; left: 16px; }
+    .card::after  { bottom: 12px; right: 16px; }
+
+    .eyebrow {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(0.75rem, 2vw, 0.95rem);
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+      animation-delay: 0.8s;
+    }
+
+    .title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-style: italic;
+      line-height: 1.05;
+      background: linear-gradient(
+        135deg,
+        var(--gold-light) 0%,
+        var(--gold) 30%,
+        #fff8e0 50%,
+        var(--gold) 70%,
+        var(--gold-light) 100%
+      );
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 4s linear infinite, titleReveal 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      opacity: 0;
+      animation-delay: 0.2s, 0.2s;
+    }
+
+    .title .line1 {
+      display: block;
+      font-size: clamp(3rem, 10vw, 8rem);
+      letter-spacing: -0.01em;
+    }
+
+    .title .line2 {
+      display: block;
+      font-size: clamp(2.5rem, 8vw, 6.5rem);
+      letter-spacing: 0.02em;
+    }
+
+    .title .line3 {
+      display: block;
+      font-size: clamp(4rem, 13vw, 11rem);
+      letter-spacing: -0.02em;
+    }
+
+    @keyframes shimmer {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes titleReveal {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .subtitle {
+      margin-top: 32px;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(0.85rem, 2vw, 1.05rem);
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: rgba(247,214,208,0.55);
+      opacity: 0;
+      animation: fadeIn 1.2s ease forwards;
+      animation-delay: 1.2s;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-glow"></div>
+
+  <!-- Floating sparkle particles -->
+  <script>
+    for (let i = 0; i < 22; i++) {
+      const s = document.createElement('div');
+      s.className = 'sparkle';
+      const size = Math.random() * 3 + 1;
+      s.style.cssText = `
+        width: ${size}px;
+        height: ${size}px;
+        left: ${Math.random() * 100}vw;
+        animation-duration: ${Math.random() * 8 + 6}s;
+        animation-delay: ${Math.random() * 10}s;
+      `;
+      document.body.appendChild(s);
+    }
+  </script>
+
+  <div class="card">
+    <p class="eyebrow">✦ &nbsp; a message for you &nbsp; ✦</p>
+
+    <div class="deco-line" style="margin-bottom: 32px;"></div>
+
+    <h1 class="title">
+      <span class="line1">Hey</span>
+      <span class="line2">Beautiful</span>
+      <span class="line3">Lady Boss</span>
+    </h1>
+
+    <div class="deco-line" style="margin-top: 32px;"></div>
+
+    <p class="subtitle">you own every room you walk into</p>
+  </div>
+
+</body>
+</html>
